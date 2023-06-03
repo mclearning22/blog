@@ -1,7 +1,7 @@
 <template>
   <input class="search" v-model="search" />
   <main class="post-list">
-    <h2 class="category" v-show="!search">Category : {{ selectedCategory }}</h2>
+    <h2 class="category" v-show="!search">Category: {{ selectedCategory }}</h2>
     <ul>
       <li v-for="item in filteredList" :key="item.id">
         <button class="post" @click="$emit('click-post', item.id)">
