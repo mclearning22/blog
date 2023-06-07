@@ -1,18 +1,18 @@
 <template>
   <nav class="menu">
-    <a
+    <RouterLink
+      :to="c.toLowerCase()"
       v-for="c of categories"
       :key="c"
-      :href="'/' + c.toLowerCase()"
       class="category"
-      @click.prevent="$emit('click-category', c)"
     >
-      {{ c }}</a
-    >
+      {{ c }}
+    </RouterLink>
   </nav>
 </template>
 
 <script setup>
+import { RouterLink } from "vue-router";
 const categories = ["HTML", "CSS", "Javascript"];
 </script>
 
