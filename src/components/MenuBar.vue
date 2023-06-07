@@ -1,7 +1,7 @@
 <template>
   <nav class="menu">
     <RouterLink
-      :to="c.toLowerCase()"
+      :to="`/category/${c.toLowerCase()}`"
       v-for="c of categories"
       :key="c"
       class="category"

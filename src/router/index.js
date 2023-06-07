@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import PostList from "../views/PostList.vue";
 import PostContent from "../views/PostContent.vue";
 
 const router = createRouter({
@@ -9,7 +10,11 @@ const router = createRouter({
       redirect: "/html",
     },
     {
-      path: "/:category",
+      path: "/category/:category",
+      component: PostList,
+    },
+    {
+      path: "/post/:id",
       component: PostContent,
     },
   ],
