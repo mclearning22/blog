@@ -1,5 +1,5 @@
 <template>
-  <MenuBar />
+  <MenuBar @click-category="changeCategory" />
   <RouterView />
 </template>
 

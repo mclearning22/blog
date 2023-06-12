@@ -3,11 +3,11 @@ import PostList from "../views/PostList.vue";
 import PostContent from "../views/PostContent.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: "/",
-      redirect: "/html",
+      redirect: "/category/html",
     },
     {
       path: "/category/:category",

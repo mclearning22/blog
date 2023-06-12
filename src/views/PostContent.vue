@@ -1,7 +1,25 @@
 <template>
-  <div>{{ $route.params.id }}</div>
+  <main class="post-content">
+    <NotionRenderer :blockMap="blockMap" />
+  </main>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRoute } from "vue-router";
+import { ref, computed } from "vue";
+import { NotionRenderer, getPageBlocks } from "vue-notion";
 
-<style></style>
+const route = useRoute();
+// const id = computed(() => route.path.split("/").pop());
+const id = computed(() => route.params.id);
+const blockMap = ref(null);
+
+blockMap.value = null;
+getPageBlocks(id.value).then((b) => {
+  blockMap.value = b;
+});
+</script>
+
+<style>
+@import "vue-notion/src/styles.css";
+</style>
