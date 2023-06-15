@@ -1,9 +1,119 @@
 <template>
-  <MenuBar @click-category="changeCategory" />
-  <RouterView />
+  <div class="wrapper">
+    <img class="bg" src="./assets/bg.jpg" alt="bg" />
+    <a href="/" class="back-home">
+      <img class="logo" src="./assets/logo.png" alt="logo" />
+    </a>
+    <input class="search" v-model="search" placeholder="Search" />
+    <MenuBar @click-category="changeCategory" />
+    <iframe
+      src="https://ads-partners.coupang.com/widgets.html?id=669505&template=carousel&trackingCode=AF7692121&subId=&width=680&height=140&tsource="
+      width="680"
+      height="140"
+      frameborder="0"
+      scrolling="no"
+      referrerpolicy="unsafe-url"
+    ></iframe>
+    <p class="coupang-text">
+      ♢ 이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를
+      제공받습니다.
+    </p>
+    <RouterView :search="search" />
+    <footer>
+      <span>Made by <strong>Vuelogger</strong></span>
+      <div class="sns">
+        <a href=""><img src="@/assets/github.png" /></a>
+        <a href=""><img src="@/assets/twitter.png" /></a>
+        <a href=""><img src="@/assets/instagram.png" /></a>
+        <a href=""><img src="@/assets/youtube.png" /></a>
+      </div>
+    </footer>
+  </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { RouterView } from "vue-router";
 import MenuBar from "./components/MenuBar.vue";
+
+const search = ref("");
 </script>
+
+<style scoped>
+.wrapper {
+  position: relative;
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+.bg {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  height: 200px;
+  z-index: -1;
+}
+
+iframe {
+  width: 100%;
+  height: 200px;
+  margin-top: 10px;
+}
+.coupang-text {
+  font-size: 12px;
+  text-align: right;
+  color: gray;
+  margin: 0;
+}
+
+.search {
+  display: block;
+  margin: 10px auto;
+  width: 200px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.back-home {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.logo {
+  height: 70px;
+  margin-top: 30px;
+}
+
+footer {
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+  color: gray;
+  font-size: 12px;
+  padding: 4px 10px;
+  margin-top: auto;
+}
+footer .sns {
+  display: flex;
+  column-gap: 10px;
+  margin-left: auto;
+}
+
+footer .sns img {
+  height: 20px;
+  filter: grayscale(1) opacity(0.5);
+  transition: all 0.3s;
+}
+
+footer .sns img:hover {
+  filter: none;
+}
+</style>

@@ -1,14 +1,13 @@
 <template>
-  <input class="search" v-model="search" />
   <main class="post-list">
-    <h2 class="category" v-show="!search">카테고리 : {{ selectedCategory }}</h2>
+    <h2 class="category" v-show="!search">
+      카테고리 : {{ selectedCategory.toUpperCase() }}
+    </h2>
     <ul>
       <li v-for="item in filteredList" :key="item.id">
-        <!-- <button class="post" @click="$emit('click-post', item.id)">
-          {{ item.title }}
-        </button> -->
         <RouterLink class="post" :to="'/post/' + item.id">
-          {{ item.title }}
+          <div class="title">{{ item.title }}</div>
+          <div class="date">{{ item.Date }}</div>
         </RouterLink>
       </li>
     </ul>
@@ -20,11 +19,10 @@ import { useRoute } from "vue-router";
 import { ref, computed, onMounted } from "vue";
 import { getPageTable } from "vue-notion";
 
-const search = ref("");
+const props = defineProps(["search"]);
 
 const route = useRoute();
 
-//const selectedCategory = computed(() => route.path.split("/").pop());
 const selectedCategory = computed(() => route.params.category);
 
 const postList = ref({});
@@ -42,7 +40,8 @@ getPageTable("088ad41f4b9f4293aa11a4670359f085").then((data) => {
 });
 
 const filteredList = computed(() => {
-  if (search.value == "") {
+  // if (search.value == "") {
+  if (props.search == "") {
     for (const category in postList.value) {
       if (category.toLowerCase() == selectedCategory.value) {
         return postList.value[category];
@@ -52,7 +51,8 @@ const filteredList = computed(() => {
     const result = [];
     for (const category in postList.value) {
       for (const item of postList.value[category]) {
-        if (item.title.includes(search.value)) {
+        // if (item.title.includes(search.value)) {
+        if (item.title.includes(props.search)) {
           result.push(item);
         }
       }
@@ -66,22 +66,38 @@ onMounted(() => {
 });
 </script>
 
-<style>
-.search {
-  margin-top: 10px;
-  padding: 5px 3px;
-  border-radius: 5px;
-  border: 1px solid #777;
+<style scoped>
+.category {
+  color: #222;
+  font-size: 30px;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px gray;
 }
 
-.post-list button {
-  border: 0;
-  background-color: transparent;
-  color: rgb(101, 129, 139);
-  cursor: pointer;
+.post-list ul {
+  list-style-type: none;
+  padding: 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
 }
 
-.post-list button:hover {
-  color: blue;
+.post-list li {
+  padding: 5px 10px;
+}
+
+.post {
+  display: flex;
+  color: #222;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.post:hover {
+  color: rgb(96, 128, 225);
+  font-size: 1.1em;
+}
+
+.date {
+  margin-left: auto;
 }
 </style>
